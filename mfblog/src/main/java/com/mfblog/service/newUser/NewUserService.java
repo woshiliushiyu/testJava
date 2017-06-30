@@ -22,4 +22,6 @@ public interface NewUserService extends BaseService<TestNewUser> {
     TestNewUser findOneById(Serializable id) throws NotFoundException;
 
     void del(String name) throws Exception;
+
+    List<TestNewUser> findAll();
 }

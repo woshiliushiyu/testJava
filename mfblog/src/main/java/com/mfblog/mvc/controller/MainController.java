@@ -36,7 +36,7 @@ public class MainController {
         return new Gson().toJson(list);
     }
 
-    @RequestMapping(value = "/create",method = RequestMethod.POST,produces = {APPLICATION_JSON_UTF8_VALUE})
+    @RequestMapping(value = "/create",method = RequestMethod.GET,produces = {APPLICATION_JSON_UTF8_VALUE})
     @ResponseBody
     public Object createData(@Param("name") String name,@Param("address") String address,@Param("sex") String sex){
 
@@ -53,6 +53,8 @@ public class MainController {
                 newUserService.add(testNewUser);
                 responseObj.setCode(ResponseObj.OK);
                 responseObj.setMsg("提交成功");
+                responseObj.setData(newUserService.findAll());
+
             }
         } catch (Exception e){
 
@@ -62,8 +64,13 @@ public class MainController {
 
         }
 
-
         return new Gson().toJson(responseObj);
+    }
+
+    @RequestMapping(value = "/html",method = RequestMethod.GET)
+    public String createIndex(){
+
+        return "login";
     }
 
 }

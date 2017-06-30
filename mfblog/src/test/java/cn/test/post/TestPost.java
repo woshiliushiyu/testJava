@@ -6,6 +6,8 @@ import com.mfblog.domain.TestNewUser;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 
 public class TestPost extends BaseTest {
 
@@ -37,6 +39,17 @@ public class TestPost extends BaseTest {
         TestNewUser tes = new TestNewUser("张三","","");
 
         testNewDao.del(tes);
+    }
+
+    @Test
+    public void testSelect(){
+
+        List<TestNewUser> list =  testNewDao.findAll();
+
+        for (TestNewUser testNewUser : list){
+
+            System.out.println("获取数据"+testNewUser.toString());
+        }
     }
 
 

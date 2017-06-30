@@ -19,6 +19,12 @@ public class NewUserServiceImpl implements NewUserService {
     private TestNewDao testNewDao;
 
     @Override
+    public List<TestNewUser> findAll() {
+
+        return testNewDao.findAll();
+    }
+
+    @Override
     public void add(TestNewUser testNewUser) throws Exception {
 
         testNewDao.add(testNewUser);

@@ -6,9 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by liushiyu on 2017/6/30.
- */
+
 @Repository("testNewDao")
 public interface TestNewDao extends Dao<TestNewUser> {
 

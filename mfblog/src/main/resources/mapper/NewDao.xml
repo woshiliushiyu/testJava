@@ -18,6 +18,12 @@
 
     </delete>
 
+    <select id="findAll" resultType="com.mfblog.domain.TestNewUser">
+
+        SELECT * FROM tb_user;
+
+    </select>
+
 
 
 
