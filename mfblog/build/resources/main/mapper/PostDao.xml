@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mfblog.dao.PostDao">
+
+    <sql id="getLastInsertId">
+        SELECT LAST_INSERT_ID(`ID`)
+        FROM wp_posts
+        ORDER BY `ID` DESC
+        LIMIT 0, 1;
+    </sql>
+    <sql id="insertPostLog">
+        #@result
+    </sql>
+
+    <delete id="del">
+        UPDATE wp_posts
+        SET `post_author`=#{postAuthor}, `post_date`=#{postDate}, `post_date_gmt`=#{postDateGmt}, `post_content`=#{postContent}, `post_title`=#{postTitle}, `post_excerpt`=#{postExcerpt},
+        `post_status`=#{postStatus}, `comment_status`=#{commentStatus}, `comment_count`=#{commentCount}, `ping_status`=#{pingStatus}, `post_password`=#{postPassword},
+        `post_name`=#{postName}, `to_ping`=#{toPing}, `pinged`=#{pinged}, `post_modified`=#{postModified}, `post_modified_gmt`=#{postModifiedGmt},
+        `post_content_filtered`=#{postContentFiltered}, `post_parent`=#{postParent}, `guid`=#{guid}, `menu_order`=#{menuOrder}, `post_type`=#{postType}, `post_mime_type`=#{postMimeType}
+        WHERE ID=#{id}
+    </delete>
+
+    <insert id="add" parameterType="PostCustom">
+        <selectKey keyProperty="postCustom.id" order="AFTER" resultType="java.lang.String">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
+        <!--<choose>-->
+        <!--<when test="postCustom.id == null">-->
+        #文章id为空说明是刚开始插入新的文章
+        INSERT INTO `wp_posts`
+        (`post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`,
+        `post_status`, `comment_status`, `comment_count`, `ping_status`, `post_password`,
+        `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`,
+        `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`)
+        VALUES (#{postCustom.postAuthor},#{postCustom.postDate},#{postCustom.postDateGmt},#{postCustom.postContent},
+        #{postCustom.postTitle}, #{postCustom.postExcerpt},
+        #{postCustom.postStatus},#{postCustom.commentStatus},#{postCustom.commentCount},#{postCustom.pingStatus},#{postCustom.postPassword},#{postCustom.postName},
+        #{postCustom.toPing},#{postCustom.pinged},#{postCustom.postModified},#{postCustom.postModifiedGmt},#{postCustom.postContentFiltered},
+        #{postCustom.postParent},#{postCustom.guid},#{postCustom.menuOrder},#{postCustom.postType},#{postCustom.postMimeType})
+
+        <!--</when>-->
+        <!--<when test="postCustom.id != null">-->
+        <!--#id不为空说明现在是更新某个文章-->
+        <!--#                 UPDATE wp_posts-->
+        <!--#                 SET `post_author`=#{postAuthor},`post_date`=#{postDate}-->
+        <!--#                 WHERE ID=#{id}-->
+        <!--</when>-->
+        <!--</choose>-->
+
+    </insert>
+
+    <update id="update" parameterType="PostCustom">
+        UPDATE wp_posts
+        SET `post_author`=#{postAuthor}, `post_date`=#{postDate}, `post_date_gmt`=#{postDateGmt}, `post_content`=#{postContent}, `post_title`=#{postTitle}, `post_excerpt`=#{postExcerpt},
+        `post_status`=#{postStatus}, `comment_status`=#{commentStatus}, `comment_count`=#{commentCount}, `ping_status`=#{pingStatus}, `post_password`=#{postPassword},
+        `post_name`=#{postName}, `to_ping`=#{toPing}, `pinged`=#{pinged}, `post_modified`=#{postModified}, `post_modified_gmt`=#{postModifiedGmt},
+        `post_content_filtered`=#{postContentFiltered}, `post_parent`=#{postParent}, `guid`=#{guid}, `menu_order`=#{menuOrder}, `post_type`=#{postType}, `post_mime_type`=#{postMimeType}
+        WHERE ID=#{id}
+
+    </update>
+
+    <select id="findAllPublish" resultType="com.mfblog.domain.PostCustom">
+        SELECT
+            `ID`,
+            `post_title`,
+            `post_date`,
+            `post_content`
+        FROM
+            `wp_posts`
+        WHERE
+            `post_type` = 'post'
+            AND
+            `post_status` = 'publish'
+        ORDER BY
+            `ID`
+        DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="findAllNew" resultType="com.mfblog.domain.PostCustom">
+        SELECT
+            `ID`,
+            `post_title`
+        FROM
+            `wp_posts`
+        WHERE
+            `post_type` = 'post'
+            AND
+            `post_status` = 'publish'
+        ORDER BY
+            `ID`
+        DESC
+        LIMIT 0, 10
+    </select>
+
+    <select id="getPublishPostCount" resultType="int">
+        SELECT COUNT(*)
+        FROM
+            `wp_posts`
+        WHERE post_type = 'post'
+              AND `post_status` = 'publish';
+    </select>
+
+    <select id="getPublishPostDateCount" resultType="com.mfblog.domain.PostCustom">
+        SELECT
+            `post_date`,
+            `ID`
+        FROM `wp_posts`
+        WHERE
+            `post_type` = 'post'
+            AND
+            `post_status` = 'publish'
+        ORDER BY `post_date` DESC
+    </select>
+    <select id="findOneById" resultType="com.mfblog.domain.PostCustom">
+        SELECT *
+        FROM
+            `wp_posts`
+        WHERE
+            `ID` = #{id}
+
+    </select>
+
+    <select id="findAll" resultType="com.mfblog.domain.PostCustom">
+        SELECT
+          wp_posts.`ID`,
+          wp_posts.`post_title`,
+          wp_posts.`post_date`,
+          LEFT(wp_posts.`post_content`, 40) 'post_content',
+          wp_posts.`post_status`,
+          wp_users.`display_name` 'post_author_name'
+        FROM
+          `wp_posts`,`wp_users`
+        WHERE
+          `post_type` = 'post'
+          AND wp_posts.post_author = wp_users.ID
+          AND (post_status!='trash' OR post_name!='__trashed')
+          AND post_status!='inherit'
+        ORDER BY
+          `ID`
+        DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="getAllPostCount" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM
+            `wp_posts`
+        WHERE post_type = 'post' AND (post_status!='trash' OR post_name!='__trashed')
+          AND post_status!='inherit';
+    </select>
+
+    <select id="getAllTrashCount" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM
+        `wp_posts`
+        WHERE post_status='trash' OR post_name='__trashed';
+    </select>
+
+
+    <select id="findAllTrash" resultType="com.mfblog.domain.PostCustom">
+        SELECT
+          wp_posts.`ID`,
+          wp_posts.`post_title`,
+          wp_posts.`post_date`,
+          LEFT(wp_posts.`post_content`, 40) 'post_content',
+          wp_posts.`post_status`,
+          wp_users.`display_name` 'post_author_name'
+        FROM
+          `wp_posts`,`wp_users`
+        WHERE
+          wp_posts.post_author = wp_users.ID AND (post_status='trash' OR post_name='__trashed')
+        ORDER BY
+        `ID`
+        DESC
+        LIMIT #{offset}, #{limit};
+    </select>
+
+    <select id="findLastPostById" resultType="com.mfblog.domain.PostCustom">
+        SELECT *
+        FROM
+          `wp_posts`
+        WHERE
+          `post_parent` = #{postId}
+        ORDER BY
+          `ID`
+        DESC LIMIT 0, 1;
+    </select>
+
+</mapper>
