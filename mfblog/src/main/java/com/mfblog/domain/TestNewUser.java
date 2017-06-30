@@ -9,16 +9,16 @@ public class TestNewUser implements Serializable {
 
     private String name;
     private String address;
-    private String sax;
+    private String sex;
 
     public TestNewUser() {
 
     }
 
-    public TestNewUser(String name, String address, String sax) {
+    public TestNewUser(String name, String address, String sex) {
         this.name = name;
         this.address = address;
-        this.sax = sax;
+        this.sex = sex;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class TestNewUser implements Serializable {
         return "TestNewUser{" +
                 "name='" + name + '\'' +
                 ", address='" + address + '\'' +
-                ", sax='" + sax + '\'' +
+                ", sax='" + sex + '\'' +
                 '}';
     }
 
@@ -39,14 +39,14 @@ public class TestNewUser implements Serializable {
 
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
-        return sax != null ? sax.equals(that.sax) : that.sax == null;
+        return sex != null ? sex.equals(that.sex) : that.sex == null;
     }
 
     @Override
     public int hashCode() {
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (address != null ? address.hashCode() : 0);
-        result = 31 * result + (sax != null ? sax.hashCode() : 0);
+        result = 31 * result + (sex != null ? sex.hashCode() : 0);
         return result;
     }
 
@@ -66,11 +66,11 @@ public class TestNewUser implements Serializable {
         this.address = address;
     }
 
-    public String getSax() {
-        return sax;
+    public String getSex() {
+        return sex;
     }
 
-    public void setSax(String sax) {
-        this.sax = sax;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 }

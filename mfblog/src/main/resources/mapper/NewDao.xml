@@ -4,9 +4,21 @@
 <mapper namespace="com.mfblog.dao.TestNewDao">
 
 
-    <insert id="add" parameterType="com.mfblog.domain.TestNewUser">
+    <!--增加数据-->
+    <insert id="add" parameterType="TestNewUser">
+
+        INSERT INTO tb_user (name,address,sex) VALUES (#{name},#{address},#{sex})
 
     </insert>
+
+    <!--删除数据-->
+    <delete id="del" parameterType="com.mfblog.domain.TestNewUser">
+
+        DELETE FROM tb_user WHERE name=#{name}
+
+    </delete>
+
+
 
 
 </mapper>

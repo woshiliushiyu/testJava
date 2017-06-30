@@ -12,14 +12,11 @@
     <script type="text/javascript" src="/static/js/jquery-3.1.1.min.js"></script>
   </head>
   <body>
-这是后界面;
+
+  <button onclick=""></button>
+
   <script type="text/javascript">
 
-    $.ajax({
-
-       url:""
-
-    });
 
   </script>
   </body>
