@@ -13,7 +13,10 @@
   </head>
   <body>
 
-  运行成功了;
+  运行成功了;<br>
+
+  <a href="<%=request.getContextPath()%>/mfblog/download?name=img.png">点击我,下载</a>
+
 
   <script type="text/javascript">
 

@@ -6,6 +6,7 @@ import com.mfblog.domain.TestNewUser;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.File;
 import java.util.List;
 
 
@@ -51,6 +52,22 @@ public class TestPost extends BaseTest {
             System.out.println("获取数据"+testNewUser.toString());
         }
     }
+
+    @Test
+    public void testOne(){
+
+        File file = new File("HelloWorld.java");
+        String fileName = file.getName();
+        String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
+        System.out.println(suffix);
+    }
+
+    @Test
+    public void testHttpclite(){
+
+
+    }
+
 
 
 }
