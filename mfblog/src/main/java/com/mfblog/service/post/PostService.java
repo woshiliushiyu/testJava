@@ -1,6 +1,7 @@
 package com.mfblog.service.post;
 
 import com.mfblog.domain.PostCustom;
+import com.mfblog.domain.TestNewUser;
 import com.mfblog.service.BaseService;
 import org.apache.ibatis.javassist.NotFoundException;
 
@@ -10,17 +11,17 @@ import java.util.List;
 /**
  * Created by liushiyu on 2017/6/30.
  */
-public interface PostService extends BaseService<PostCustom> {
+public interface PostService extends BaseService<TestNewUser> {
 
 
     @Override
-    void add(PostCustom postCustom) throws Exception;
+    void add(TestNewUser postCustom) throws Exception;
 
     @Override
-    List<PostCustom> findAll(int pageNum, int pageSize);
+    List<TestNewUser> findAll(int pageNum, int pageSize);
 
     @Override
-    PostCustom findOneById(Serializable id) throws NotFoundException;
+    TestNewUser findOneById(Serializable id) throws NotFoundException;
 
 
     /**
@@ -28,7 +29,7 @@ public interface PostService extends BaseService<PostCustom> {
      *
      * @return
      */
-    List<PostCustom> findAllPublish(int pageNum, int pageSize);
+    List<TestNewUser> findAllPublish(int pageNum, int pageSize);
 
     /**
      * 获取总条数
@@ -44,7 +45,7 @@ public interface PostService extends BaseService<PostCustom> {
      *
      * @return
      */
-    List<PostCustom> findAllNew();
+    List<TestNewUser> findAllNew();
 
     /**
      * 根据文章ID查找文章

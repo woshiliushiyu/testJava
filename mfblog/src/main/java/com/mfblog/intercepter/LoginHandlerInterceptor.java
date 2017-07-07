@@ -13,6 +13,8 @@ public class LoginHandlerInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println("是不是在这里面");
+        //添加这句是为了 ajax 请求时 返回异常
+        response.addHeader("Access-Control-Allow-Origin", "*");
         return true;
     }
 

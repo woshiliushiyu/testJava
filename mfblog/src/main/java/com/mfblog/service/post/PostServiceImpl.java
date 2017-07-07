@@ -1,7 +1,8 @@
 package com.mfblog.service.post;
 
-import com.mfblog.dao.PostDao;
+import com.mfblog.dao.TestNewDao;
 import com.mfblog.domain.PostCustom;
+import com.mfblog.domain.TestNewUser;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,28 +15,27 @@ import java.util.List;
 public class PostServiceImpl implements PostService {
 
     @Autowired
-    private PostDao postDao;
+    private TestNewDao testNewDao;
 
     @Override
-    public void add(PostCustom postCustom) throws Exception {
+    public void add(TestNewUser postCustom) throws Exception {
 
-        postDao.add(postCustom);
     }
 
     @Override
-    public List<PostCustom> findAll(int pageNum, int pageSize) {
+    public List<TestNewUser> findAll(int pageNum, int pageSize) {
+        return testNewDao.findAll();
+    }
+
+    @Override
+    public TestNewUser findOneById(Serializable id) throws NotFoundException {
         return null;
     }
 
     @Override
-    public PostCustom findOneById(Serializable id) throws NotFoundException {
+    public List<TestNewUser> findAllPublish(int pageNum, int pageSize) {
+
         return null;
-    }
-
-    @Override
-    public List<PostCustom> findAllPublish(int pageNum, int pageSize) {
-
-        return postDao.findAllPublish(pageNum,pageSize);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostCustom> findAllNew() {
+    public List<TestNewUser> findAllNew() {
         return null;
     }
 

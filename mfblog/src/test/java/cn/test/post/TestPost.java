@@ -28,7 +28,7 @@ public class TestPost extends BaseTest {
 //            System.out.println("打印结果"+postCustom.toString());
 //        }
 
-        TestNewUser tes = new TestNewUser("张三","北京","男");
+        TestNewUser tes = new TestNewUser("张三","北京","男", id);
 
         testNewDao.add(tes);
 
@@ -37,7 +37,7 @@ public class TestPost extends BaseTest {
     @Test
     public void  testdel(){
 
-        TestNewUser tes = new TestNewUser("张三","","");
+        TestNewUser tes = new TestNewUser("张三","","", id);
 
         testNewDao.del(tes);
     }

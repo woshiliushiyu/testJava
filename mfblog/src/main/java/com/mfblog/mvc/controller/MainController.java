@@ -1,7 +1,6 @@
 package com.mfblog.mvc.controller;
 
 import com.google.gson.Gson;
-import com.mfblog.domain.PostCustom;
 import com.mfblog.domain.ResponseObj;
 import com.mfblog.domain.TestNewUser;
 import com.mfblog.service.newUser.NewUserServiceImpl;
@@ -14,7 +13,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletException;
@@ -34,18 +36,25 @@ public class MainController {
     @Autowired
     private NewUserServiceImpl newUserService;
 
+
+    @RequestMapping(value = "/push/{title}",method = RequestMethod.GET)
+    public String pushView(@PathVariable(name = "title") String title){
+
+        return title;
+    }
+
     @RequestMapping(value ="/index",method = RequestMethod.GET,produces = "application/json; charset=utf-8")
-    public @ResponseBody Object test(@Param("num") int num,@Param("size") int size){
+    public @ResponseBody Object test(@Param("num") int num,@Param("size") int size) {
 
 
-        List<PostCustom> list = postService.findAllPublish(num,size);
+        List<TestNewUser> list = postService.findAll(num, size);
 
         return new Gson().toJson(list);
     }
 
     @RequestMapping(value = "/create",method = RequestMethod.GET,produces = {APPLICATION_JSON_UTF8_VALUE})
     @ResponseBody
-    public Object createData(@Param("name") String name,@Param("address") String address,@Param("sex") String sex){
+    public Object createData( @Param("name") String name, @Param("address") String address, @Param("sex") String sex){
 
         TestNewUser testNewUser = null;
         if (name!=null&&address!=null&&sex!=null){

@@ -58,8 +58,8 @@
     <orderEntry type="library" name="Gradle: io.springfox:springfox-swagger-ui:2.6.1" level="project" />
     <orderEntry type="library" name="Gradle: ch.qos.logback:logback-core:1.1.1" level="project" />
     <orderEntry type="library" name="Gradle: commons-logging:commons-logging:1.2" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: mysql:mysql-connector-java:5.1.37" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-expression:4.3.7.RELEASE" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: mysql:mysql-connector-java:5.1.37" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.commons:commons-pool2:2.3" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.shiro:shiro-guice:1.3.2" level="project" />
     <orderEntry type="library" name="Gradle: junit:junit:3.8.1" level="project" />
@@ -85,5 +85,6 @@
     <orderEntry type="library" name="Gradle: org.sonatype.sisu.inject:cglib:2.2.1-v20090111" level="project" />
     <orderEntry type="library" name="Gradle: asm:asm:3.1" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.21" level="project" />
+    <orderEntry type="library" name="dwr" level="project" />
   </component>
 </module>
