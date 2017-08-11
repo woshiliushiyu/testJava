@@ -11,7 +11,7 @@
     </sql>
     <sql id="insertPostLog">
         #@result
-    </sql>
+    </sql>a
 
     <delete id="del">
         UPDATE wp_posts

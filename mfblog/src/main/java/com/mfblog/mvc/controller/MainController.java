@@ -57,7 +57,9 @@ public class MainController {
     public Object createData( @Param("name") String name, @Param("address") String address, @Param("sex") String sex){
 
         TestNewUser testNewUser = null;
+
         if (name!=null&&address!=null&&sex!=null){
+
             testNewUser  = new TestNewUser(name,address,sex);
         }
 
